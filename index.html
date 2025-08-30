@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-India Campaign Detection System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="flag-icon"></div>
+                    <h1>Anti-India Campaign Detection System</h1>
+                </div>
+                <div class="header-status">
+                    <div class="status-indicator online"></div>
+                    <span>System Online - 99.7% Uptime</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar">
+                <ul class="nav-menu">
+                    <li><button class="nav-btn active" data-section="dashboard">📊 Dashboard</button></li>
+                    <li><button class="nav-btn" data-section="analyzer">🔍 Content Analyzer</button></li>
+                    <li><button class="nav-btn" data-section="keywords">🔤 Keywords</button></li>
+                    <li><button class="nav-btn" data-section="detections">📋 Detections</button></li>
+                    <li><button class="nav-btn" data-section="alerts">🔔 Alerts</button></li>
+                    <li><button class="nav-btn" data-section="settings">⚙️ Settings</button></li>
+                </ul>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="section active">
+                    <div class="section-header">
+                        <h2>Real-Time Detection Dashboard</h2>
+                        <div class="last-updated">Last updated: <span id="lastUpdated">31 Aug 2025, 00:30 IST</span></div>
+                    </div>
+                    
+                    <!-- Key Metrics -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon high-threat">⚠️</div>
+                            <div class="metric-content">
+                                <div class="metric-value" id="totalDetections">1,247</div>
+                                <div class="metric-label">Total Detections</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon high-threat">🚨</div>
+                            <div class="metric-content">
+                                <div class="metric-value" id="highThreats">89</div>
+                                <div class="metric-label">High Threats</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon medium-threat">⚡</div>
+                            <div class="metric-content">
+                                <div class="metric-value" id="mediumThreats">234</div>
+                                <div class="metric-label">Medium Threats</div>
+                            </div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon low-threat">📈</div>
+                            <div class="metric-content">
+                                <div class="metric-value" id="avgThreatScore">0.34</div>
+                                <div class="metric-label">Avg Threat Score</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Section -->
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h3>Threat Levels Over Time</h3>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="threatChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Source Attribution</h3>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="sourceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Detections Feed -->
+                    <div class="detection-feed">
+                        <h3>Recent High-Priority Detections</h3>
+                        <div id="recentDetections" class="detections-list">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Content Analyzer Section -->
+                <section id="analyzer" class="section">
+                    <div class="section-header">
+                        <h2>Content Analysis Engine</h2>
+                        <p>Test the detection system with custom content</p>
+                    </div>
+                    
+                    <div class="analyzer-container">
+                        <div class="input-panel">
+                            <label for="contentInput" class="form-label">Enter content to analyze:</label>
+                            <textarea id="contentInput" class="form-control" rows="6" placeholder="Paste or type content here to analyze for anti-India sentiment..."></textarea>
+                            <button id="analyzeBtn" class="btn btn--primary">Analyze Content</button>
+                        </div>
+                        
+                        <div class="analysis-results" id="analysisResults">
+                            <div class="result-placeholder">
+                                <div class="placeholder-icon">🔍</div>
+                                <p>Enter content above and click "Analyze Content" to see results</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Examples -->
+                    <div class="examples-section">
+                        <h3>Try These Examples:</h3>
+                        <div class="example-buttons">
+                            <button class="btn btn--outline example-btn" data-content="Another failed policy by Modi government shows India's corruption #antiindia">Example 1: High Threat</button>
+                            <button class="btn btn--outline example-btn" data-content="Love visiting India, amazing culture and delicious food!">Example 2: Positive Content</button>
+                            <button class="btn btn--outline example-btn" data-content="India's economic policies continue to fail the common man">Example 3: Medium Threat</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Keywords Management Section -->
+                <section id="keywords" class="section">
+                    <div class="section-header">
+                        <h2>Keywords Management</h2>
+                        <p>Manage detection keywords and hashtags</p>
+                    </div>
+                    
+                    <div class="keywords-container">
+                        <div class="keywords-panel">
+                            <h3>Anti-India Keywords</h3>
+                            <div class="keyword-input">
+                                <input type="text" id="newKeyword" class="form-control" placeholder="Add new keyword...">
+                                <button id="addKeywordBtn" class="btn btn--primary">Add</button>
+                            </div>
+                            <div id="keywordsList" class="keywords-list">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="hashtags-panel">
+                            <h3>Suspicious Hashtags</h3>
+                            <div class="keyword-input">
+                                <input type="text" id="newHashtag" class="form-control" placeholder="Add new hashtag (with #)...">
+                                <button id="addHashtagBtn" class="btn btn--primary">Add</button>
+                            </div>
+                            <div id="hashtagsList" class="keywords-list">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="keyword-stats">
+                        <h3>Keyword Effectiveness</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value">17</div>
+                                <div class="stat-label">Active Keywords</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">10</div>
+                                <div class="stat-label">Active Hashtags</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">89%</div>
+                                <div class="stat-label">Detection Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Detections Section -->
+                <section id="detections" class="section">
+                    <div class="section-header">
+                        <h2>Detection Results</h2>
+                        <p>View and filter all detected content</p>
+                    </div>
+                    
+                    <div class="detections-controls">
+                        <div class="filters">
+                            <select id="threatFilter" class="form-control">
+                                <option value="">All Threats</option>
+                                <option value="HIGH">High</option>
+                                <option value="MEDIUM">Medium</option>
+                                <option value="LOW">Low</option>
+                            </select>
+                            <select id="sourceFilter" class="form-control">
+                                <option value="">All Sources</option>
+                                <option value="Twitter">Twitter</option>
+                                <option value="Reddit">Reddit</option>
+                                <option value="RSS">RSS</option>
+                            </select>
+                            <button id="exportBtn" class="btn btn--outline">📊 Export Results</button>
+                        </div>
+                    </div>
+                    
+                    <div id="detectionsTable" class="detections-table">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- Alerts Section -->
+                <section id="alerts" class="section">
+                    <div class="section-header">
+                        <h2>Alert Management</h2>
+                        <p>Configure and manage system alerts</p>
+                    </div>
+                    
+                    <div class="alerts-container">
+                        <div class="alert-config">
+                            <h3>Alert Configuration</h3>
+                            <div class="config-form">
+                                <div class="form-group">
+                                    <label for="threatThreshold" class="form-label">High Threat Threshold:</label>
+                                    <input type="range" id="threatThreshold" class="form-control" min="0.5" max="1" step="0.1" value="0.8">
+                                    <span id="thresholdValue">0.8</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="alertEmail" class="form-label">Alert Email:</label>
+                                    <input type="email" id="alertEmail" class="form-control" value="security@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <input type="checkbox" id="emailAlerts" checked> Enable Email Alerts
+                                    </label>
+                                </div>
+                                <button id="saveAlertsBtn" class="btn btn--primary">Save Configuration</button>
+                            </div>
+                        </div>
+                        
+                        <div class="recent-alerts">
+                            <h3>Recent Alerts</h3>
+                            <div id="alertsList" class="alerts-list">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="section">
+                    <div class="section-header">
+                        <h2>System Settings</h2>
+                        <p>Configure system parameters and preferences</p>
+                    </div>
+                    
+                    <div class="settings-container">
+                        <div class="settings-panel">
+                            <h3>API Configuration</h3>
+                            <div class="form-group">
+                                <label for="twitterApi" class="form-label">Twitter API Key:</label>
+                                <input type="password" id="twitterApi" class="form-control" value="••••••••••••••••">
+                            </div>
+                            <div class="form-group">
+                                <label for="redditApi" class="form-label">Reddit API Key:</label>
+                                <input type="password" id="redditApi" class="form-control" value="••••••••••••••••">
+                            </div>
+                            <div class="status-indicator online"></div>
+                            <span>APIs Connected</span>
+                        </div>
+                        
+                        <div class="settings-panel">
+                            <h3>System Preferences</h3>
+                            <div class="form-group">
+                                <label for="updateInterval" class="form-label">Update Interval (minutes):</label>
+                                <select id="updateInterval" class="form-control">
+                                    <option value="5">5 minutes</option>
+                                    <option value="10" selected>10 minutes</option>
+                                    <option value="15">15 minutes</option>
+                                    <option value="30">30 minutes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox" id="realTimeUpdates" checked> Real-time Updates
+                                </label>
+                            </div>
+                            <button id="saveSettingsBtn" class="btn btn--primary">Save Settings</button>
+                        </div>
+                        
+                        <div class="settings-panel">
+                            <h3>About</h3>
+                            <div class="about-info">
+                                <p><strong>Version:</strong> 1.0.0 MVP</p>
+                                <p><strong>Build:</strong> 2025.08.31</p>
+                                <p><strong>License:</strong> Proprietary</p>
+                                <p><strong>Support:</strong> security@example.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
